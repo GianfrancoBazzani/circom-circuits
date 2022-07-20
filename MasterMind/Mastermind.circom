@@ -1,7 +1,7 @@
 pragma circom 2.0.3;
 
-include "../node_modules/circomlib/circuits/poseidon.circom";
-include "../node_modules/circomlib/circuits/comparators.circom";
+include "../../node_modules/circomlib/circuits/poseidon.circom";
+include "../../node_modules/circomlib/circuits/comparators.circom";
 
 // include "https://github.com/0xPARC/circom-secp256k1/blob/master/circuits/bigint.circom";
 
@@ -32,7 +32,6 @@ template MasterMind (c,h) {
     signal output blackPegs;
 
     // Check that the input signals are within the limits of the game and non repeated.
-    // colors # should be in the range [h+1, c]
     // Check solution
     component solLessEqThan[h];
     component solGreaterEqThan[h];
@@ -46,7 +45,7 @@ template MasterMind (c,h) {
         solLessEqThan[i].in[1] <== c;
 
         solGreaterEqThan[i].in[0] <== solution[i];
-        solGreaterEqThan[i].in[1] <== h+1;
+        solGreaterEqThan[i].in[1] <== 0;
 
         solLessEqThan[i].out === 1;
         solGreaterEqThan[i].out === 1;
@@ -74,7 +73,7 @@ template MasterMind (c,h) {
         gueLessEqThan[i].in[1] <== c;
 
         gueGreaterEqThan[i].in[0] <== solution[i];
-        gueGreaterEqThan[i].in[1] <== h+1;
+        gueGreaterEqThan[i].in[1] <== 0;
 
         gueLessEqThan[i].out === 1;
         gueGreaterEqThan[i].out === 1;
@@ -97,31 +96,25 @@ template MasterMind (c,h) {
     hash.inputs[h] <== solutionSalt;
     hash.out === pubSolutionHash;
 
-    // Calculate white pegs
-    component wpIsEqual[h**2];
+    // Calculate pegs
+    component pegsIsEqual[(h**2)];
     var wp = 0;
-    
+    var bp = 0;
+
     for(var i = 0; i<h; i++){
         for(var j = 0; j<h; j++){
-            wpIsEqual[i*h+j] = IsEqual();
-            wpIsEqual[i*h+j].in[0] <== guess[j];
-            wpIsEqual[i*h+j].in[1] <== solution[i];
-            wp = wp + wpIsEqual[i+j].out;
+            pegsIsEqual[i*h+j] = IsEqual();
+            pegsIsEqual[i*h+j].in[0] <== guess[j];
+            pegsIsEqual[i*h+j].in[1] <== solution[i];
+            if(j != i){
+                wp = wp + pegsIsEqual[i*h+j].out;  
+            } else {
+                bp = bp + pegsIsEqual[i*h+j].out;
+            }
         }
     }
 
     whitePegs <== wp;
-    
-    // Calculate black pegs
-    component bpIsEqual[h];
-    var bp = 0;
-
-    for(var i = 0; i < h ; i++){
-        bpIsEqual[i] = IsEqual();
-        bpIsEqual[i].in[0] <== guess[i];
-        bpIsEqual[i].in[1] <== solution[i];
-        bp = bp + bpbpIsEqual[i].out;
-    }
     blackPegs <== bp;
     
 }
