@@ -81,8 +81,8 @@ template MasterMind (c,h) {
         for(var j = 0; j < h ; j++) {
             if(j != i){
                 gueIsEqual[i*h+j] = IsEqual();
-                gueIsEqual[i*h+j].in[0] <== solution[i];
-                gueIsEqual[i*h+j].in[1] <== solution[j];
+                gueIsEqual[i*h+j].in[0] <== guess[i];
+                gueIsEqual[i*h+j].in[1] <== guess[j];
                 gueIsEqual[i*h+j].out === 0;
             }
         }
