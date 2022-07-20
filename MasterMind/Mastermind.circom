@@ -1,7 +1,7 @@
 pragma circom 2.0.3;
 
-include "../node_modules/circomlib/circuits/poseidon.circom";
-include "../node_modules/circomlib/circuits/comparators.circom";
+include "../../node_modules/circomlib/circuits/poseidon.circom";
+include "../../node_modules/circomlib/circuits/comparators.circom";
 
 // include "https://github.com/0xPARC/circom-secp256k1/blob/master/circuits/bigint.circom";
 
@@ -69,10 +69,10 @@ template MasterMind (c,h) {
         gueLessEqThan[i] = LessEqThan(4);
         gueGreaterEqThan[i] = GreaterEqThan(4);
         
-        gueLessEqThan[i].in[0] <== solution[i];
+        gueLessEqThan[i].in[0] <== guess[i];
         gueLessEqThan[i].in[1] <== c;
 
-        gueGreaterEqThan[i].in[0] <== solution[i];
+        gueGreaterEqThan[i].in[0] <== guess[i];
         gueGreaterEqThan[i].in[1] <== 0;
 
         gueLessEqThan[i].out === 1;
