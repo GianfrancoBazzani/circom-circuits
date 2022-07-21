@@ -24,8 +24,8 @@ template MasterMind (c,h) {
     signal input solutionSalt;
         
     // Code breaker signals
-    signal input guess[h];
-    signal input pubSolutionHash;
+    signal input guess[h];  //Should be public
+    signal input pubSolutionHash; //Should be public
 
     // Outputs
     signal output whitePegs;
