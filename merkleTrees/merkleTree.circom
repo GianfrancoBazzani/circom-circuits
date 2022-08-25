@@ -8,7 +8,7 @@ include "../node_modules/circomlib/circuits/poseidon.circom";
 include "../node_modules/circomlib/circuits/mux1.circom";
 
 template CheckRoot(n) { // compute the root of a MerkleTree of n Levels 
-    //  Example with n = 4;
+    //  Example with n = 3;
     //
     //      H(H(H(l_1),H(l_2)),H(H(l_4),H(l_5))) ---> Merkle root
     //           /                      \
