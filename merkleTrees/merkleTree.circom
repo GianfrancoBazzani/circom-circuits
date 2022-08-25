@@ -58,9 +58,9 @@ template MerkleTreeInclusionProof(n) {
     signal input path_index[n]; // path index are 0's and 1's indicating whether the current element is on the left or right
     signal output root; 
 
-    component hash[n];
-    component muxL[n-1];
-    component muxR[n-1];
+    component hash[n+1];
+    component muxL[n];
+    component muxR[n];
 
     hash[0] = Poseidon(1);
     hash[0].inputs[0] <== leaf;
