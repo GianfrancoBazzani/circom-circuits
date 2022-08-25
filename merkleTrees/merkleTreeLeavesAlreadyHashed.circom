@@ -41,13 +41,13 @@ template CheckRoot(n) { // compute the root of a MerkleTree of n Levels
 
 template MerkleTreeInclusionProof(n) {
     signal input leafHash;
-    signal input path_elements[n];
-    signal input path_index[n]; // path index are 0's and 1's indicating whether the current element is on the left or right
+    signal input path_elements[n-1];
+    signal input path_index[n-1]; // path index are 0's and 1's indicating whether the current element is on the left or right
     signal output root; 
 
-    component hash[n];
-    component muxL[n];
-    component muxR[n];
+    component hash[n-1];
+    component muxL[n-1];
+    component muxR[n-1];
 
 
     for(var i = 0; i< n; i++){
