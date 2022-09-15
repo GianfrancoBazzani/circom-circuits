@@ -135,7 +135,7 @@ describe("----------------------merkleTreeLeavesAlreadyHashed.circom TEST-------
     });
     
     it("Should recovery correctly the root from a merkle path",async function(){
-        console.log("*** template MerkleTreeInclusionProof(n=4) ***");
+        console.log("*** template MerkleTreeInclusionProof(n=3) ***");
         const circuit1 = await wasm_tester("tests/merkleTrees/MerkleTreeProofGeneratorInAlreadyHashed.circom");
         const INPUT1 = {
             "inHashes": [1,2,3,4,5,6,7,8]
