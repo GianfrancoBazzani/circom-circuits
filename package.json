@@ -1,5 +1,13 @@
 {
   "dependencies": {
-    "circomlib": "^2.0.5"
+    "chai": "^4.3.6",
+    "circomlib": "^2.0.5",
+    "circomlibjs": "^0.1.7",
+    "circom_tester": "^0.0.14",
+    "mocha": "^10.0.0"
+  },
+  "scripts": {
+    "test:mastermind": "mocha --timeout 10000 tests/mastermind/mastermind-test.js",
+    "test:merkleTrees": "mocha --timeout 10000 tests/merkleTrees/merkleTrees-test.js"
   }
 }
